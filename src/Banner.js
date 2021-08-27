@@ -1,12 +1,20 @@
-function Banner() {
+function Banner({ banner, setBanner }) {
+  const handleBanner = () => {
+    setBanner(false);
+  };
+
   return (
     <div className="banner">
       <div className="banner__content">
         <div className="banner__text">
-          <strong>Reminder: </strong> You can nominate 5 movies
+          <strong>Reminder: </strong> You can nominate up to 5 movies
+          <button class="button__close" onClick={handleBanner}>
+            close
+          </button>
         </div>
-        <button class="button__close">close</button>
       </div>
     </div>
   );
 }
+
+export default Banner;

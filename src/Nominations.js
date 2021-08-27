@@ -4,7 +4,7 @@ function Nominations({ nominees, setNominees }) {
   const removeNomination = (e) => {
     const target = e.target.parentElement.firstChild.innerText;
     console.log(target);
-    setNominees(nominees.filter((nominee) => nominee.id !== target));
+    setNominees(nominees.filter((nomi) => nomi.id !== target));
   };
 
   return (
