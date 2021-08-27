@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import ResultFor from "./ResultFor";
 import "./App.css";
@@ -13,8 +13,8 @@ function SearchBar() {
   });
   const [nominees, setNominees] = useState([]);
   const [banner, setBanner] = useState(false);
-
   const { text, movies, find } = inputs;
+  const focusInput = useRef();
 
   const onChange = (e) => {
     setInputs({
@@ -41,6 +41,7 @@ function SearchBar() {
         find: true,
       });
     }
+    focusInput.current.focus();
   };
 
   const onNomination = async (e) => {
@@ -91,6 +92,7 @@ function SearchBar() {
           onChange={onChange}
           value={text}
           placeholder="Enter a title to search"
+          ref={focusInput}
         />
         <button onClick={fetchMovies}>submit</button>
       </div>

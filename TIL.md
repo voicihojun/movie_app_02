@@ -104,6 +104,9 @@ background-position-x: 5px;
 background-position-y: 5px;
 }
 
-13. vanilla js code
+13. useRef 사용해서 특정 DOM 선택하기
+    const focusInput = useRef() 와 같이 일단 선언을 통해 변수를 설정하고, 어떤 이벤트가 일어났을 때 포커스를 둘 html tag에 ref={focusInput} 과 같이 설정해준다. 그리고 그 버튼에 onClick={handleClick}과 같은 이벤트리스너를 설정하고, 해당 버튼이 클릭되었을 때 포커스가 ref를 지정해둔 html tag에 갈 수 있도록 hook을 작성[예: focusInput.current.focus() ]
+
+14. vanilla js code
     assignment 1 : https://codesandbox.io/s/day-three-solution-3n53e
     assignment 2 : https://codesandbox.io/s/empty-blueprint-forked-58hy0

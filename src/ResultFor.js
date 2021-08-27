@@ -1,7 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
-import SearchBar from "./SearchBar";
-import Nominations from "./Nominations";
+import React from "react";
 
 function ResultFor({ api, movies, onNomination }) {
   return (
