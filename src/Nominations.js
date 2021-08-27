@@ -5,8 +5,6 @@ function Nominations({ nominees, setNominees }) {
     const target = e.target.parentElement.firstChild.innerText;
     console.log(target);
     setNominees(nominees.filter((nominee) => nominee.id !== target));
-    // setNominees([...nominees, nominee]);
-    // setNominees(nominees.concat(nominee));
   };
 
   return (

@@ -66,8 +66,24 @@ You'll need to either reference a property of the object that is a string value 
 '''
 
 9. git에 홈페이지처럼 올리는 법(deploy)
-   npm i gh-pages 실행
 
-10. vanilla js code
+   - npm i gh-pages 실행
+   - package.json에 "homepage" : "https://voicihojun.github.io/movie_app_02" 를 추가한다.
+
+   - npm run build를 실행한다. (아마도 이 과정은 생략가능)
+   - build 폴더가 생성된 것을 확인한다(최소화된 파일들) (생략가능 : 왜냐하면 아래서 npm deploy 하는 순간 위의 부분이 실행되기 때문)
+
+   - package.json의 script에 "deploy" : "gh-pages -d build" 추가(생성된 빌드 폴더를 deploy 한다는 뜻으로 build 폴더 이름이 다르다면 그것에 맞춰서 설정해야 함.)
+   - package.json의 script에 "predeploy" : "npm run build"
+   - 위의 과정을 설명하자면, npm run deploy를 실행시, predeploy의 npm run build가 실행되고 "react-scripts build"에 의해서 build 파일이 생성된다. 그리고 deploy의 명령어에 따라 gh-pages로 생성된 build 파일을 deploy한다.
+
+10. How to fix a website with blocked mixed content?
+    https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content
+
+    9번 진행후 홈페이지 주소 들어갔을 때 search bar 잘 작동 안하고 에러메시지 mixed content 나옴. 찾아보니 http => https 로 바꾸어야 하는 문제였음.
+
+11. 문제 : find 라는 변수를 설정해서 영화를 못 찾았을 때 메세지를 띄우려고 했는데, 그 변수를 useState를 사용해서 작성했어야 함(그 전에는 그냥 변수로 만들어서 했더니 작동 안 함)
+
+12. vanilla js code
     assignment 1 : https://codesandbox.io/s/day-three-solution-3n53e
     assignment 2 : https://codesandbox.io/s/empty-blueprint-forked-58hy0

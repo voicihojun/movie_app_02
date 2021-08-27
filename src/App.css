@@ -1,3 +1,13 @@
 .hidden {
   display: none;
 }
+
+input {
+  background-image: url("search-solid.svg");
+  background-position: absolute;
+  background-repeat: no-repeat;
+  padding: 5px 25px;
+  background-size: 15px;
+  background-position-x: 5px;
+  background-position-y: 5px;
+}
