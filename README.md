@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+1. 여러가지 input 상태 관리할 때
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+const [inputs, setInputs] = useState({
+name:'',
+nickname:''
+});
 
-## Available Scripts
+const {name, nickname} = inputs; // 비구조화 할당을 통해 값 추출해야 한다.
 
-In the project directory, you can run:
+const onChange = (e) => {
+const {value, name} = e.target; // 이 부분 중요.
+setInputs({
+...inputs,
+[name]: value
+});
+}
 
-### `yarn start`
+2. Hello.defaultProps = { name: '이름없음'}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3. Wrapper 로 다른 컴포넌트를 감싼 경우, Wrapper의 props.children을 렌더링 해주어야 그 내부의 다른 컴포넌트의 내용이 보여지게 된다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+4. props의 값을 넣지 않고 isSpecial 이라고만 입력한 경우, {true} 설정된다.
 
-### `yarn test`
+5. Hooks. useRef로는 특정 DOM을 선택할 수 있다. 예를 들어, 인풋과 버튼이 있을 때, 버튼을 클릭하면 포커스가 버튼에 그대로 남아있는데 useRef를 사용하여 input에 포커스가 잡히도록 할 수 있다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const onReset = () => {
+setInputs({
+name: '',
+nickname: ''
+})
+nameInput.current.focus();
+};
 
-### `yarn build`
+<input name="name" onChange={onChange}...... ref={nameInput}>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6.  아래 코드는 인풋에 내용이 입력되는 것을 onChange에서 바꾸는 것과 같은 코드인데, 변수에 할당하는 방법이 특이해서 아래 적어놓은 것이다.
+    '''
+    const [ email, setEmail ] = useState("")
+    const updateEmail = e => {
+    const {
+    target: {value}
+    } = e;
+    setEmail(value)
+    }
+    '''
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+7.  useState를 이용하여 전역변수로 설정한 것을 return 이후에 사용하기 위해서는, return 다음 줄에 {text} 이런 식으로 다시 한번 명시해줘야 한다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+8.  Error: Objects are not valid as a React child (found: object with keys {id, year, title}). If you meant to render a collection of children, use an array instead.
 
-### `yarn eject`
+stack overflow :
+https://stackoverflow.com/questions/33117449/invariant-violation-objects-are-not-valid-as-a-react-child
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+'''
+I was having this error and it turned out to be that I was unintentionally including an Object in my JSX code that I had expected to be a string value:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+return (
+<BreadcrumbItem href={routeString}>
+{breadcrumbElement}
+</BreadcrumbItem>
+)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+breadcrumbElement used to be a string but due to a refactor had become an Object. Unfortunately, React's error message didn't do a good job in pointing me to the line where the problem existed. I had to follow my stack trace all the way back up until I recognized the "props" being passed into a component and then I found the offending code.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You'll need to either reference a property of the object that is a string value or convert the Object to a string representation that is desirable. One option might be JSON.stringify if you actually want to see the contents of the Object.
+'''
 
-## Learn More
+9. git에 홈페이지처럼 올리는 법(deploy)
+   npm i gh-pages 실행
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+10. vanilla js code
+    assignment 1 : https://codesandbox.io/s/day-three-solution-3n53e
+    assignment 2 : https://codesandbox.io/s/empty-blueprint-forked-58hy0
