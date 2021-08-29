@@ -37,6 +37,10 @@ input {
   border-color: #eff3f7;
 }
 
+#noFindMessage {
+  text-align: center;
+}
+
 /* ====== searchBar.css =========*/
 .search__container,
 .resultFor,
