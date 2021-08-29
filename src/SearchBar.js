@@ -3,11 +3,10 @@ import "./App.css";
 function SearchBar({ text, focusInput, onChange, fetchMovies }) {
   return (
     <div>
-      <h1>Movie_app_02</h1>
-      <div>
-        <h3>Movie title</h3>
+      <h1 className="title">Movie_app_02</h1>
+      <div className="search__container">
+        <h2>Movie title</h2>
         <input
-          style={{ width: "300px" }}
           onChange={onChange}
           value={text}
           placeholder="Enter a title to search"

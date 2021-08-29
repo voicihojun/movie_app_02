@@ -4,6 +4,7 @@ import ResultFor from "./ResultFor";
 import Banner from "./Banner";
 import axios from "axios";
 import React, { useState, useRef } from "react";
+import "./App.css";
 
 function App() {
   const [inputs, setInputs] = useState({
@@ -15,6 +16,7 @@ function App() {
   const [banner, setBanner] = useState(false);
   const { text, movies, find } = inputs;
   const focusInput = useRef();
+  const focusBanner = useRef();
 
   const onChange = (e) => {
     setInputs({
@@ -77,19 +79,21 @@ function App() {
       }
     } else {
       setBanner(true);
+      focusBanner.current.focus();
     }
   };
 
   return (
-    <div>
-      {banner && <Banner banner={banner} setBanner={setBanner} />}
+    <div id="container">
+      {banner && <Banner focusBanner={focusBanner} setBanner={setBanner} />}
+
       <SearchBar
         focusInput={focusInput}
         text={text}
         onChange={onChange}
         fetchMovies={fetchMovies}
       />
-      <div>
+      <div className="smallContainer">
         {find ? (
           <ResultFor
             api={API_KEY}
@@ -97,7 +101,9 @@ function App() {
             onNomination={onNomination}
           />
         ) : (
-          <h3>We can not find any movie with the offered information</h3>
+          <h3 id="noFindMessage">
+            We can not find any movie with the offered information
+          </h3>
         )}
         <Nominations nominees={nominees} setNominees={setNominees} />
       </div>
